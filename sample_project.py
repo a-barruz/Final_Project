@@ -33,15 +33,13 @@ with interaccion_usuario:
     st.header('GASOLINERAS EN ESPAÑA')
 
     gasolineras = pd.DataFrame(gasolineras)
-    gasolineras['Gasoleo A'] = gasolineras['Gasoleo A'].replace(np.nan, 0)
-    gasolineras['Gasoleo B'] = gasolineras['Gasoleo B'].replace(np.nan, 0)
-    gasolineras['Gasoleo Premium'] = gasolineras['Gasoleo Premium'].replace(np.nan, 0)
-    gasolineras['Gasolina 95 E5'] = gasolineras['Gasolina 95 E5'].replace(np.nan, 0)
-    gasolineras['Gasolina 98 E5'] = gasolineras['Gasolina 98 E5'].replace(np.nan, 0)
+    
+
+    
 
     # Radio Buttons   
     
-    st.sidebar.header("ENCUENTRA EL COMBUSTIBLE MÁS ECONÓMICO FILTRANDO POR:")
+    st.sidebar.header("ENCUENTRA LA GASOLINERA MÁS BARATA FILTRANDO POR:")
     
     pages_names = ['Código Postal', 'Municipio', 'Provincia', 'Localidad']
 
@@ -70,7 +68,7 @@ with interaccion_usuario:
             st.write(p_minimo(caja_cp, combustible_cp))
             st.balloons()
         
-            st.title('Comparación de precio respecto la media Nacional')
+            st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(combustible_cp):
                 if combustible_cp == 'Gasoleo A':
                     var = 'Media_Gasoleo A'          
@@ -92,15 +90,15 @@ with interaccion_usuario:
         else:
             st.write(gasolineras)
 
-        caja_general = st.checkbox('Todas las Gasolineras por Municipio')
-        if caja_general:        
-            filtro_municipio = gasolineras["Municipio"].unique()
-            caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
-            def cp_minimo(caja_municipio):
-                municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
-                return municipio 
+            caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            if caja_general:        
+                filtro_municipio = gasolineras["Municipio"].unique()
+                caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                def cp_minimo(caja_municipio):
+                    municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    return municipio 
                 
-            st.write(cp_minimo(caja_municipio))
+                st.write(cp_minimo(caja_municipio))
 
 # Slicing for Municipio
     if page == 'Municipio':
@@ -124,7 +122,7 @@ with interaccion_usuario:
             st.write(cp_minimo(caja_municipio, combustible))
             st.balloons()
         
-            st.title('Comparación de precio respecto la media Nacional')
+            st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(combustible):
                 if combustible == 'Gasoleo A':
                     var = 'Media_Gasoleo A'          
@@ -144,18 +142,21 @@ with interaccion_usuario:
             if st.sidebar.button('Limpiar'):
                 st.write(gasolineras)
 
+
+                
         else:
             st.write(gasolineras)
-
-        caja_general = st.checkbox('Todas las Gasolineras por Municpio ')
-        if caja_general:        
-            filtro_municipio_gen = gasolineras["Municipio"].unique()
-            caja_municipio_gen=st.selectbox('Filtro por Municipio', filtro_municipio_gen)
-            def cp_minimo(caja_municipio_gen):
-                municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio_gen)]
-                return municipio 
+        
+            caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            if caja_general:        
+                filtro_municipio = gasolineras["Municipio"].unique()
+                caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                def cp_minimo(caja_municipio):
+                    municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    return municipio 
                 
-            st.write(cp_minimo(caja_municipio_gen))
+                st.write(cp_minimo(caja_municipio))
+       
 
 
  # Slicing for Provincia
@@ -180,7 +181,7 @@ with interaccion_usuario:
             st.write(provincia_min(box_mun, oil_prov))
             st.balloons()
         
-            st.title('Comparación de precio respecto la media Nacional')
+            st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(oil_prov):
                 if oil_prov == 'Gasoleo A':
                     var = 'Media_Gasoleo A'          
@@ -203,15 +204,15 @@ with interaccion_usuario:
         else:
             st.write(gasolineras)
         
-        caja_general = st.checkbox('Todas las Gasolineras por Municipio')
-        if caja_general:        
-            filtro_municipio = gasolineras["Municipio"].unique()
-            caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
-            def cp_minimo(caja_municipio):
-                municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
-                return municipio 
+            caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            if caja_general:        
+                filtro_municipio = gasolineras["Municipio"].unique()
+                caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                def cp_minimo(caja_municipio):
+                    municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    return municipio 
                 
-            st.write(cp_minimo(caja_municipio))
+                st.write(cp_minimo(caja_municipio))
         
 
  # Slicing for 'Proveedor de Servicio':
@@ -234,9 +235,8 @@ with interaccion_usuario:
 
         if st.sidebar.button('Buscar'):
             st.write(proveedor_min(box_proveedor, oil_proveedor))
-            st.balloons()
         
-            st.title('Comparación de precio respecto la media Nacional')
+            st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(oil_provedor):
                 if oil_provedor == 'Gasoleo A':
                     var = 'Media_Gasoleo A'          
@@ -260,15 +260,15 @@ with interaccion_usuario:
         else:
             st.write(gasolineras)
             
-        caja_general = st.checkbox('Todas las Gasolineras por Municipio')
-        if caja_general:        
-            filtro_municipio = gasolineras["Municipio"].unique()
-            caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
-            def cp_minimo(caja_municipio):
-                municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
-                return municipio 
+            caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            if caja_general:        
+                filtro_municipio = gasolineras["Municipio"].unique()
+                caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                def cp_minimo(caja_municipio):
+                    municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    return municipio 
                 
-            st.write(cp_minimo(caja_municipio))
+                st.write(cp_minimo(caja_municipio))
 
 
      
