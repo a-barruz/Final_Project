@@ -22,8 +22,10 @@ with header:
 
 with dataset:
     
-    gasolineras = pd.read_csv("./df_sample.csv")
+    gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.":str})
     #st.text(pd.DataFrame(gasolineras))
+    #gasolineras['Gasoleo B'] = gasolineras['Gasoleo B'].replace(np.nan, "Sin servicio")
+    #f['DataFrame Column'] = df['DataFrame Column'].replace(np.nan, 0)
 
   
 with interaccion_usuario:
@@ -31,9 +33,12 @@ with interaccion_usuario:
     st.header('GASOLINERAS EN ESPAÑA')
 
     gasolineras = pd.DataFrame(gasolineras)
-    gasolineras['C.P.'] = gasolineras[['C.P.']].astype(str)
+    gasolineras['Gasoleo A'] = gasolineras['Gasoleo A'].replace(np.nan, 0)
+    gasolineras['Gasoleo B'] = gasolineras['Gasoleo B'].replace(np.nan, 0)
+    gasolineras['Gasoleo Premium'] = gasolineras['Gasoleo Premium'].replace(np.nan, 0)
+    gasolineras['Gasolina 95 E5'] = gasolineras['Gasolina 95 E5'].replace(np.nan, 0)
+    gasolineras['Gasolina 98 E5'] = gasolineras['Gasolina 98 E5'].replace(np.nan, 0)
 
-   
     # Radio Buttons   
     
     st.sidebar.header("ENCUENTRA EL COMBUSTIBLE MÁS ECONÓMICO FILTRANDO POR:")
@@ -48,7 +53,8 @@ with interaccion_usuario:
     if page == 'Código Postal':
         
         # Filtro Código Postal
-        filtro_cp = gasolineras["C.P."].unique()
+        filtro_cp = gasolineras["C.P."].astype(str).unique()
+        
         filtro_combustible_cp = ['Gasoleo A', 'Gasoleo B','Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']
 
         # Sidebar Código Postal
@@ -62,6 +68,7 @@ with interaccion_usuario:
          
         if st.sidebar.button('Buscar'):
             st.write(p_minimo(caja_cp, combustible_cp))
+            st.balloons()
         
             st.title('Comparación de precio respecto la media Nacional')
             def mean(combustible_cp):
@@ -84,6 +91,7 @@ with interaccion_usuario:
                 st.write(gasolineras)
         else:
             st.write(gasolineras)
+
         caja_general = st.checkbox('Todas las Gasolineras por Municipio')
         if caja_general:        
             filtro_municipio = gasolineras["Municipio"].unique()
@@ -114,6 +122,7 @@ with interaccion_usuario:
 
         if st.sidebar.button('Buscar'):
             st.write(cp_minimo(caja_municipio, combustible))
+            st.balloons()
         
             st.title('Comparación de precio respecto la media Nacional')
             def mean(combustible):
@@ -169,6 +178,7 @@ with interaccion_usuario:
 
         if st.sidebar.button('Buscar'):
             st.write(provincia_min(box_mun, oil_prov))
+            st.balloons()
         
             st.title('Comparación de precio respecto la media Nacional')
             def mean(oil_prov):
@@ -224,6 +234,7 @@ with interaccion_usuario:
 
         if st.sidebar.button('Buscar'):
             st.write(proveedor_min(box_proveedor, oil_proveedor))
+            st.balloons()
         
             st.title('Comparación de precio respecto la media Nacional')
             def mean(oil_provedor):
