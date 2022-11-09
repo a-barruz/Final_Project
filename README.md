@@ -53,9 +53,9 @@ La configuración de Chepest oil, está dividida en tres partes, estructuradas d
 
 # 💩 ToDo
 
-1 - Con los csv guardados en daily data, una predicción de la tendencia a futruo del prcio utilizando la tecnología forecast.
-2 - Unificar configuración para que se realice el proceso automáticamente.
-3 - Conexión a API de Google Maps para que a través de las direcciones se conecte directamente.
+n\1 - Con los csv guardados en daily data, una predicción de la tendencia a futruo del prcio utilizando la tecnología forecast.
+n\2 - Unificar configuración para que se realice el proceso automáticamente.
+n\3 - Conexión a API de Google Maps para que a través de las direcciones se conecte directamente.
 
 
 # Resources
