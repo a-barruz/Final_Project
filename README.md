@@ -44,13 +44,13 @@ La configuración de Chepest oil, está dividida en tres partes, estructuradas d
 3 - run sreamlit sample_project.py: se ejecuta el .py en la terminal para visualizar el report en streamlit.
 
 
-**# 📁 Folder structure
+# 📁 Folder structure
 └── https://github.com/angel-barruz/Final_Project.git
-    ├── df_sample.csv
-    ├── logo.png
-    ├── MVP_Final_Project.ipynb
-    ├── sample_project.py
-    ├── daily data**
+    "├── df_sample.csv"
+    "├── logo.png"
+    "├── MVP_Final_Project.ipynb"
+    "├── sample_project.py"
+    "├── daily data"
 
 
 # 💩 ToDo
