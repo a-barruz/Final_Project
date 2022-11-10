@@ -46,11 +46,16 @@ La configuración de Chepest oil, está dividida en tres partes, estructuradas d
 
 # 📁 Folder structure
 └── https://github.com/angel-barruz/Final_Project.git
-    "├── df_sample.csv"
-    "├── logo.png"
-    "├── MVP_Final_Project.ipynb"
-    "├── sample_project.py"
-    "├── daily data"
+    
+    ├── df_sample.csv
+    
+    ├── logo.png
+    
+    ├── MVP_Final_Project.ipynb
+    
+    ├── sample_project.py
+    
+    ├── daily data
 
 
 # 💩 ToDo
