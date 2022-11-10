@@ -37,20 +37,20 @@ El proyecto surge por la necesidad de obtener información respecto a los precio
 
 La configuración de Chepest oil, está dividida en tres partes, estructuradas de la siguiente manera:
 
-'1 - MVP_Final_Project: se realiza un Extract Data Analitycs para analizar la calidad de los datos y posteriormente realizar las modificaciones necesarias.' 
+1 - MVP_Final_Project: se realiza un EDA para analizar la calidad de los datos y posteriormente realizar las modificaciones necesarias.
 
-'2 - sample_project.py: se estructura el código para ejecutar streamlit. Se carga el csv df_sample elaboradio en MVP_Final Project. Es el Dataframe denominado gasolineras.'
+2 - sample_project.py: se estructura el código para ejecutar streamlit. Se carga el csv df_sample elaborado en MVP_Final Project. Es el Dataframe denominado gasolineras.
 
-'3 - run sreamlit sample_project.py: se ejecuta el .py en la terminal para visualizar el report en streamlit.'
+3 - run sreamlit sample_project.py: se ejecuta el .py en la terminal para visualizar el report en streamlit.
 
 
-# 📁 Folder structure
-'└── https://github.com/angel-barruz/Final_Project.git
+**# 📁 Folder structure
+└── https://github.com/angel-barruz/Final_Project.git
     ├── df_sample.csv
     ├── logo.png
     ├── MVP_Final_Project.ipynb
     ├── sample_project.py
-    ├── daily data'
+    ├── daily data**
 
 
 # 💩 ToDo
