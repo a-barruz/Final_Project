@@ -66,7 +66,6 @@ try:
      
         if st.sidebar.button('Buscar'):
             st.write(p_minimo(caja_cp, combustible_cp))
-            st.balloons()
             
       
             st.subheader('Comparación por tipo de combustible respecto a la media')
@@ -129,7 +128,6 @@ try:
 
         if st.sidebar.button('Buscar'):
             st.write(provincia_min(box_mun, oil_prov))
-            st.balloons()
         
             st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(oil_prov):
@@ -193,7 +191,6 @@ try:
 
         if st.sidebar.button('Buscar'):
             st.write(cp_minimo(caja_municipio, combustible))
-            st.balloons()
         
             st.subheader('Comparación por tipo de combustible respecto a la media')
             def mean(combustible):
