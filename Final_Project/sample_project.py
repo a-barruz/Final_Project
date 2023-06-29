@@ -24,7 +24,9 @@ with header:
 with dataset:
     
     gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.":str})
-
+    #st.text(pd.DataFrame(gasolineras))
+    #gasolineras['Gasoleo B'] = gasolineras['Gasoleo B'].replace(np.nan, "Sin servicio")
+    #f['DataFrame Column'] = df['DataFrame Column'].replace(np.nan, 0)
   
 with interaccion_usuario:
 
@@ -417,23 +419,13 @@ except:
 try:    
     if page == 'Calculadora por kilómetros': 
 
+    
 
-        kilometros = st.number_input('Km a recorrer', 0, 10000000000)
-
-        consumo = st.number_input('Introduzca la media el consumo de su coche a los 100km', 0.0, 10000.5)
-        
-        resultado = (kilometros * consumo) / 100
-        
-        st.write('Litros consumidos', resultado)
-
-        precio_litro=st.number_input('Indique el precio por litro de combustible', 0.0, 100.9)
-
-        calculo_precio_litro = precio_litro * resultado
-
-        st.write ('El importe total de su viaje en € es: ', calculo_precio_litro)
-
-      
-
+        filtro_combustible_p = ['Gasoleo A', 'Gasoleo B','Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']
+        kilometros = st.number_input('str')
+        consumo_a_los_100=st.number_input('str')
+        calculo_litros_consumo = (kilometros * consumo_a_los_100)/100
+        gasto_combustible = calculo_litros_consumo * filtro_combustible_p
 
 except:
     st.error('No hay suministro para el combustible seleccionado', icon="🚨")
