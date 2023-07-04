@@ -16,7 +16,7 @@ with header:
 
     image = Image.open('logo.png')
 
-    st.image(image, caption='Encuentra tu Gasolinera con el combustible más económico ')
+    st.image(image, caption='Encuentra la Gasolinera  más económico ')
 
     
 
@@ -35,9 +35,9 @@ with interaccion_usuario:
 
     # Radio Buttons   
     
-    st.sidebar.header("ENCUENTRA LA GASOLINERA MÁS BARATA FILTRANDO POR:")
+    st.sidebar.header("PRECIO MÍNIMO FILTRANDO POR:")
     
-    pages_names = ['Código Postal', 'Provincia', 'Municipio', 'Localidad', 'Proveedor de Servicio', 'Calculadora por kilómetros']
+    pages_names = ['Código Postal', 'Provincia', 'Localidad', 'Proveedor de Servicio']
 
     page = st.sidebar.radio(' ', pages_names)
 
@@ -199,80 +199,80 @@ except:
 
 
 # Slicing for Municipio
-try:   
-    if page == 'Municipio':
+#try:   
+    #if page == 'Municipio':
     
         #Filtros para operaciones en cajas
-        filtro_combustible = ['Gasoleo A', 'Gasoleo B','Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']
-        filtro_municipio = gasolineras["Municipio"].unique()
+        #filtro_combustible = ['Gasoleo A', 'Gasoleo B','Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']
+        #filtro_municipio = gasolineras["Municipio"].unique()
     
         # Cajas Sidebar
-        caja_municipio = st.sidebar.selectbox("Seleccione Municipio", filtro_municipio)
-        combustible = st.sidebar.selectbox("Seleccione tipo de combustible", filtro_combustible)
+        #caja_municipio = st.sidebar.selectbox("Seleccione Municipio", filtro_municipio)
+        #combustible = st.sidebar.selectbox("Seleccione tipo de combustible", filtro_combustible)
 
-        def cp_minimo(caja_municipio, combustible):
-            municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
-            filtro_df_n_2= municipio.loc[municipio[[combustible]].idxmin()]
-            return(filtro_df_n_2) 
+        #def cp_minimo(caja_municipio, combustible):
+            #municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+            #filtro_df_n_2= municipio.loc[municipio[[combustible]].idxmin()]
+            #return(filtro_df_n_2) 
 
     
 
-        if st.sidebar.button('Buscar'):
-            st.write(cp_minimo(caja_municipio, combustible))
+        #if st.sidebar.button('Buscar'):
+            #st.write(cp_minimo(caja_municipio, combustible))
         
-            st.subheader('Comparación por tipo de combustible respecto a la Media por Código Postal y Nacional')
+            #st.subheader('Comparación por tipo de combustible respecto a la Media por Código Postal y Nacional')
 
-            def mean_CP(combustible):
-                if combustible == 'Gasoleo A':
-                    var = 'Media C.P. Gasoleo A'        
-                if combustible == 'Gasoleo B':
-                    var = 'Media C.P. Gasoleo B'      
-                if combustible == 'Gasoleo Premium':
-                    var = 'Media C.P. Gasoleo P'
-                if combustible == 'Gasolina 95 E5':
-                    var = 'Media C.P. Gasolina 95'
-                if combustible == 'Gasolina 98 E5':
-                    var = 'Media C.P. Gasolina 98'             
-                return var
+            #def mean_CP(combustible):
+                #if combustible == 'Gasoleo A':
+                    #var = 'Media C.P. Gasoleo A'        
+                #if combustible == 'Gasoleo B':
+                    #var = 'Media C.P. Gasoleo B'      
+                #if combustible == 'Gasoleo Premium':
+                    #var = 'Media C.P. Gasoleo P'
+                #if combustible == 'Gasolina 95 E5':
+                    #var = 'Media C.P. Gasolina 95'
+                #if combustible == 'Gasolina 98 E5':
+                    #var = 'Media C.P. Gasolina 98'             
+                #return var
 
-            def mean(combustible):
-                if combustible == 'Gasoleo A':
-                    var ='Media Nacional Gasoleo A'        
-                if combustible == 'Gasoleo B':
-                    var = 'Media Nacional Gasoleo B'        
-                if combustible == 'Gasoleo Premium':
-                    var = 'Media Nacional Gasoleo P'
-                if combustible == 'Gasolina 95 E5':
-                    var = 'Media Nacional Gasolina 95'
-                if combustible == 'Gasolina 98 E5':
-                    var = 'Media Nacional Gasolina 98'
-                return var
+            #def mean(combustible):
+                #if combustible == 'Gasoleo A':
+                    #var ='Media Nacional Gasoleo A'        
+                #if combustible == 'Gasoleo B':
+                    #var = 'Media Nacional Gasoleo B'        
+                #if combustible == 'Gasoleo Premium':
+                    #var = 'Media Nacional Gasoleo P'
+                #if combustible == 'Gasolina 95 E5':
+                    #var = 'Media Nacional Gasolina 95'
+                #if combustible == 'Gasolina 98 E5':
+                    #var = 'Media Nacional Gasolina 98'
+                #return var
 
-            graphic = pd.DataFrame(cp_minimo(caja_municipio, combustible), columns=[combustible, mean_CP(combustible), mean(combustible)]).T
-            st.bar_chart(graphic)
+            #graphic = pd.DataFrame(cp_minimo(caja_municipio, combustible), columns=[combustible, mean_CP(combustible), mean(combustible)]).T
+            #st.bar_chart(graphic)
     
-            if st.sidebar.button('Limpiar'):
-                st.write(gasolineras)
+            #if st.sidebar.button('Limpiar'):
+                #st.write(gasolineras)
 
 
                 
-        else:
-            st.write(gasolineras)
+        #else:
+            #st.write(gasolineras)
         
-            caja_general = st.checkbox('Todas las Gasolineras por Municipio')
-            if caja_general:        
-                filtro_municipio = gasolineras["Municipio"].unique()
-                caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
-                def cp_minimo(caja_municipio):
-                    municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
-                    return municipio 
+            #caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            #if caja_general:        
+                #filtro_municipio = gasolineras["Municipio"].unique()
+                #caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                #def cp_minimo(caja_municipio):
+                    #municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    #return municipio 
                 
-                st.write(cp_minimo(caja_municipio))
-except:
-    st.error('No hay suministro para el combustible seleccionado', icon="🚨")
+                #st.write(cp_minimo(caja_municipio))
+#except:
+    #st.error('No hay suministro para el combustible seleccionado', icon="🚨")
     
-    peligro = Image.open('sin_combustible.png')
-    st.image(peligro)
+    #peligro = Image.open('sin_combustible.png')
+    #st.image(peligro)
       
 
 
@@ -408,42 +408,29 @@ except:
     
     peligro = Image.open('sin_combustible.png')
     st.image(peligro)
-    
-             
-   
-
-  # Calculadora por kilómetros
-
-try:    
-    if page == 'Calculadora por kilómetros': 
-
-
-        kilometros = st.number_input('Km a recorrer', 0, 10000000000)
-
-        consumo = st.number_input('Introduzca la media el consumo de su coche a los 100km', 0.0, 10000.5)
-        
-        resultado = (kilometros * consumo) / 100
-        
-        st.write('Litros consumidos', resultado)
-
-        precio_litro=st.number_input('Indique el precio por litro de combustible', 0.0, 100.9)
-
-        calculo_precio_litro = precio_litro * resultado
-
-        st.write ('El importe total de su viaje en € es: ', calculo_precio_litro)
-
-      
-
-
-except:
-    st.error('No hay suministro para el combustible seleccionado', icon="🚨")
-    
-    peligro = Image.open('sin_combustible.png')
-    st.image(peligro)
-
-
+            
+       
+ 
 # Fin
+# Radio Buttons   
+    
+        #calculadora = st.sidebar.checkbox('Calculadora de combustible por kilómetros')
 
+if st.sidebar.checkbox('Calculadora de combustible por kilómetros'):
+    
+    kilometros = st.number_input('Km a recorrer', 0, 10000000000)
+
+    consumo = st.number_input('Introduzca el gasto medio en litros de su coche por cada 100km recorridos', 0.0, 10000.5)
+        
+    resultado = (kilometros * consumo) / 100
+        
+    st.write('Litros consumidos', resultado)
+
+    precio_litro=st.number_input('Indique el precio mínimo, por litro de combustible', 0.0, 100.9)
+
+    calculo_precio_litro = precio_litro * resultado
+
+    st.write ('El importe total de su viaje en € es: ', calculo_precio_litro)
 
 
 
