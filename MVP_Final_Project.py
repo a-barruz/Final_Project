@@ -36,20 +36,22 @@ parametros = '/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/
 # In[3]:
 
 
-# Vamos a guardar en una variable nuestros datos (resultado, comida) 
+# Vamos a guardar en una variable nuestros datos 
 
 response = urlopen(endpoint+parametros)
 type(response)
+response
 
 
 # In[4]:
 
 
-# Vamos a extraer del obejto, los datos (Conexion a la API)
+# Vamos a extraer del obejto, los datos 
 
 data = response.read().decode('utf-8', 'replace')
 data = json.loads(data)
 type(data)
+data
 
 
 # In[5]:
@@ -982,7 +984,7 @@ df_n['Media Nacional Gasolina 98']=df_n['Gasolina 98 E5'].mean()
 
 # # Media de precios respecto al código postal
 
-# In[110]:
+# In[109]:
 
 
 # Media Código Postal de Gasoleo A
@@ -993,7 +995,7 @@ def cp_media_A(x):
     return media_cp_GA
 
 
-# In[111]:
+# In[110]:
 
 
 # Media Código Postal de Gasoleo B
@@ -1004,7 +1006,7 @@ def cp_media_B(x):
     return media_cp_GB
 
 
-# In[112]:
+# In[111]:
 
 
 # Media Código Postal de Gasoleo Premium
@@ -1015,7 +1017,7 @@ def cp_media_P(x):
     return media_cp_GP
 
 
-# In[113]:
+# In[112]:
 
 
 # Media Código Postal de Gasolina 95 E5
@@ -1026,7 +1028,7 @@ def cp_media_95(x):
     return media_cp_G95
 
 
-# In[114]:
+# In[113]:
 
 
 # Media Código Postal de Gasolina 98 E5
@@ -1037,14 +1039,14 @@ def cp_media_98(x):
     return media_cp_G98
 
 
-# In[115]:
+# In[114]:
 
 
 # Comprobación
 cp_media_95('28760')
 
 
-# In[116]:
+# In[115]:
 
 
 # Aplicamos la función a la columna
@@ -1055,19 +1057,19 @@ df_n[['Media C.P. Gasolina 95']]= df_n['C.P.'].apply(cp_media_95)
 df_n[['Media C.P. Gasolina 98']]= df_n['C.P.'].apply(cp_media_98)
 
 
-# In[117]:
+# In[116]:
 
 
 df_n.head()
 
 
-# In[118]:
+# In[117]:
 
 
 df_n.info()
 
 
-# In[119]:
+# In[118]:
 
 
 #Ordenamos columnas
@@ -1080,9 +1082,9 @@ df_n = df_n[['Fecha', 'Horario', 'C.P.','Provincia','Municipio','Localidad', 'Di
 df_n
 
 
-# # Limpieza de Nombres en "Proveedores de servicio
+# # Limpieza de Nombres en "Proveedores de servicio"
 
-# In[120]:
+# In[119]:
 
 
 # Misma marca de gasolineras con nombres diferentes
@@ -1092,31 +1094,31 @@ df_n = df_n.sort_values('Proveedor de Servicio')
 
 
 
-# In[121]:
+# In[120]:
 
 
 df_n["Proveedor de Servicio"] = df_n["Proveedor de Servicio"] .astype(str)
 
 
-# In[122]:
+# In[121]:
 
 
 df_n.info()
 
 
-# In[123]:
+# In[122]:
 
 
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].astype('string')
 
 
-# In[124]:
+# In[123]:
 
 
 df_n.info()
 
 
-# In[168]:
+# In[128]:
 
 
 # Gasolineras BP
@@ -1419,332 +1421,28 @@ df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('\S*[+
 df_n['Proveedor de Servicio'] 
 
 
-# In[169]:
+# In[129]:
 
 
 df_n['Proveedor de Servicio'].iloc[5700]
 
 
-# # Guardado Dataframe 
+# # Dataframe Final de Gasolineras
 
-# In[170]:
+# In[130]:
 
 
 # Guardamos df original para sucesion de tiempo
 df_n.to_csv('df_sample.csv', index=False)
 
 
-# In[171]:
+# In[131]:
 
 
 df_n.info()
 
 
-# In[129]:
-
-
-x = df_n['C.P.']
-print(type(x))
-
-
-# In[130]:
-
-
-# Analisis de Funciones
-
-
-# In[131]:
-
-
-# Analizar df_n usando .loc()
-
-df_n[df_n['C.P.'] == '28760'] 
-
-
-# In[132]:
-
-
-df_n[['Gasoleo A']].min()
-
-
-# In[133]:
-
-
-type(df_n[['Gasoleo A']].min())
-
-
-# In[134]:
-
-
-df_n[['Gasoleo A']].idxmin()
-
-
-# In[135]:
-
-
-type(df_n[['Gasoleo A']].idxmin())
-
-
-# In[136]:
-
-
-#df_n.loc[df_n[['Gasoleo A']].min()]
-
-
-# In[137]:
-
-
-#df_n.head()
-
-
-# In[138]:
-
-
-#df_n.loc[1.290]
-
-
-# In[139]:
-
-
-df_n.index
-
-
-# In[140]:
-
-
-type(df_n.loc[df_n[['Gasoleo A']].idxmin()])
-
-
-# In[141]:
-
-
-type(df_n.loc[9213])
-
-
-# In[142]:
-
-
-a = df_n.groupby(by=["Municipio"])
-a
-
-
-# In[143]:
-
-
-b = a["C.P."].unique()
-b
-
-
-# # Funciones
-
-# In[144]:
-
-
-# Precio mínimo de combstible en un codigo postal 
-def cp_minimo(x,y):
-# x = Código Postal
-# y = Tipo de combustible para el precio mínimo
-    cod_postal = df_n[df_n['C.P.'] == x]
-    combustible = cod_postal.loc[cod_postal[[y]].idxmin()]
-    return combustible
-
-
-# In[145]:
-
-
-cp_minimo('28760', 'Gasoleo A')
-
-
-# ---
-
-# In[146]:
-
-
-df_n[df_n['C.P.'] == "28500"]
-
-
-# In[147]:
-
-
-# Comprobación
-x1 = df_n["C.P."]=='28609'
-x2 = df_n[x1]
-x2
-
-
-# In[148]:
-
-
-########
-def cp_media(x):
-# x = Código Postal
-# y = Tipo de combustible para el precio mínimo
-    cod_postal = df_n[df_n['C.P.'] == x]
-    media_cp = cod_postal[['Gasoleo A']].mean()
-    return media_cp
-
-
-# In[149]:
-
-
-#####Comprobacion#####
-cp_media('28760')
-
-
-# In[150]:
-
-
-# Precio mínimo de combstible en una Provincia  
-def provincia_minimo(x, y):
-# x = Provincia
-# y = tipo de combustible     
-    provincia = df_n[df_n["Provincia"] == x]
-    minimo_prov = provincia.loc[provincia[[y]].idxmin()]
-    return minimo_prov
-
-
-# In[151]:
-
-
-provincia_minimo('MADRID', 'Gasoleo A')
-
-
-# In[152]:
-
-
-# Precio mínimo de combstible en un Municipio  
-def municipio_minimo(x, y):
-# x = Municipio
-# y = Tipo de Combustible    
-    municipio = df_n[df_n["Municipio"] == x]
-    municipio_min = municipio.loc[municipio[[y]].idxmin()]
-    return municipio
-
-
-# In[153]:
-
-
-municipio_minimo('Cercedilla', 'Gasoleo A')
-
-
-# In[154]:
-
-
-# # Precio mínimo de combstible en un proveedor de estación de servicio  
-def gasolinera_minimo(x, y):
-# x = Proveedor de estación de servicio
-# Y = Tipo de Combustible    
-    proveedor = df_n[df_n["Proveedor de Servicio"] == x]
-    minimo_prov = proveedor.loc[proveedor[[y]].idxmin()]
-    return minimo_prov
-
-
-# In[155]:
-
-
-gasolinera_minimo('REPSOL', 'Gasoleo A')
-
-
-# In[156]:
-
-
-# Función para convertir códigos postales
-def convert(x):
-# x: Municipio    
-    municipio = df_n[df_n["Municipio"] == x]
-    cp = municipio[["C.P.", "Municipio", "Proveedor de Servicio", "Gasoleo A"]].min()
-    return cp
-type(convert)
-    
-
-
-# In[157]:
-
-
-convert('Móstoles')
-
-
 # In[ ]:
-
-
-
-
-
-# In[158]:
-
-
-# Listado de Estaciones de Servicio por Municipio por Municipio
-# x: Municipio
-def gasolineras_municipio(x):
-    municipio = df_n[df_n["Municipio"] == x]
-    eess_mun = pd.DataFrame(municipio[["Proveedor de Servicio"]])
-    return eess_mun
-
-
-# In[159]:
-
-
-gasolineras_municipio('Navalcarnero')
-
-
-# In[160]:
-
-
-# Listado de Gasolineras por Provincia
-#x=Provincia
-def gasolineras_provincia(x):
-    cp_x = df_n[df_n["Provincia"] == x]
-    return cp_x
-
-
-# In[161]:
-
-
-gasolineras_provincia('HUELVA')
-
-
-# In[162]:
-
-
-# Listado de Gasolineras por Código Postal:
-# x: código postal
-def gasolineras_cp(x):
-    cp = df_n[df_n["C.P."] == x]
-    return cp
-
-
-# In[163]:
-
-
-gasolineras_cp('28500')
-
-
-# In[164]:
-
-
-df_n.dropna()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
 
 
 
