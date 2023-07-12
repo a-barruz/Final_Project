@@ -37,7 +37,7 @@ with interaccion_usuario:
     
     st.sidebar.header("PRECIO MÍNIMO FILTRANDO POR:")
     
-    pages_names = ['Código Postal', 'Provincia', 'Localidad', 'Proveedor de Servicio']
+    pages_names = ['Código Postal', 'Provincia' , 'Proveedor de Servicio']
 
     page = st.sidebar.radio(' ', pages_names)
 
@@ -365,29 +365,29 @@ try:
         
     
         # Cajas Sidebar
-        caja_Proveedor = st.sidebar.selectbox("Seleccione Proveedor de Servicio", filtro_Proveedor)
+        caja_Proveedor = st.sidebar.selectbox("Proveedor de Servicio en España", filtro_Proveedor)
     
         proveedor_ES = gasolineras[(gasolineras["Proveedor de Servicio"] == caja_Proveedor)]
         
         agree = st.sidebar.checkbox('Precio mas bajo para estación de servicio')
         
         if agree:
-            oil_proveedor = st.sidebar.selectbox("Seleccione tipo de combustible", filtro_combustible_p) 
+            oil_proveedor = st.sidebar.selectbox("Seleccione tipo de combustible", filtro_combustible_p)
+
 
         if st.sidebar.button('Buscar'):
             st.write(proveedor_ES)
+
             
             if st.sidebar.button('Limpiar'):
                 st.write(gasolineras)
 
     
             if agree: 
-                st.subheader('Estación de Servicio mas barata para los filtros seleccionados') 
+                st.subheader('Estación de Servicio con el precio mas económico') 
                 df_pov_ES = proveedor_ES.loc[proveedor_ES[[oil_proveedor]].idxmin()]
                 st.write (df_pov_ES)
-            
-            
-       
+                  
         else:
             st.write(gasolineras)
             
@@ -400,24 +400,26 @@ try:
                     return municipio 
                 
                 st.write(cp_minimo(caja_municipio))
+            
         
-        
-    
+
 except:
     st.error('No hay suministro para el combustible seleccionado', icon="🚨")
     
     peligro = Image.open('sin_combustible.png')
     st.image(peligro)
             
-       
+
  
 # Fin
 # Radio Buttons   
     
         #calculadora = st.sidebar.checkbox('Calculadora de combustible por kilómetros')
 
+
+
 if st.sidebar.checkbox('Calculadora de combustible por kilómetros'):
-    
+                            
     kilometros = st.number_input('Km a recorrer', 0, 10000000000)
 
     consumo = st.number_input('Introduzca el gasto medio en litros de su coche por cada 100km recorridos', 0.0, 10000.5)
@@ -431,6 +433,14 @@ if st.sidebar.checkbox('Calculadora de combustible por kilómetros'):
     calculo_precio_litro = precio_litro * resultado
 
     st.write ('El importe total de su viaje en € es: ', calculo_precio_litro)
+
+
+
+
+
+
+                       
+
 
 
 

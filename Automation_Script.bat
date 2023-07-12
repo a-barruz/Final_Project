@@ -1,1 +1,0 @@
-"C:\Users\Angel Barruz\miniconda3\envs\jp_env\python.exe" "C:\Users\Angel Barruz\Documents\ironhack\Final Project\MVP_Final_Project.py"

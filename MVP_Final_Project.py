@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## MVP
+# ## MVP (Cheapest Oil)
 
 # In[1]:
 
@@ -17,9 +17,7 @@ from urllib.request import urlopen
 # Importo libreria Json para que lea
 import json
 
-#Normalizar Json
-from pandas.io.json import json_normalize
-
+# Numpy
 import numpy as np
 
 
@@ -47,7 +45,7 @@ type(response)
 # In[4]:
 
 
-# Vamos a extraer del obejto, los datos
+# Vamos a extraer del obejto, los datos (Conexion a la API)
 
 data = response.read().decode('utf-8', 'replace')
 data = json.loads(data)
@@ -664,18 +662,12 @@ df_n[['Precio Gasoleo B']]=df_n[['Precio Gasoleo B']].apply(pd.to_numeric)
 # In[70]:
 
 
-df_n['Precio Gasoleo B'].describe()
-
-
-# In[71]:
-
-
 # Registros sin venta Gasoleo B
 sin_suministro_gB = df_n['Precio Gasoleo B'].isnull().sum()
 sin_suministro_gB
 
 
-# In[72]:
+# In[71]:
 
 
 ceros_sin_suministro_gB = (df_n['Precio Gasoleo B'] == 0).sum()
@@ -684,7 +676,7 @@ ceros_sin_suministro_gB
 
 # # Precio Gasoleo Premium 
 
-# In[73]:
+# In[72]:
 
 
 Gasoleo_P = df_n['Precio Gasoleo Premium'].unique()
@@ -693,7 +685,7 @@ print(type(Gasoleo_P))
 Gasoleo_P
 
 
-# In[74]:
+# In[73]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -701,13 +693,13 @@ df_n['Precio Gasoleo Premium']=df_n['Precio Gasoleo Premium'].str.replace(',','.
 df_n[['Precio Gasoleo Premium']]=df_n[['Precio Gasoleo Premium']].apply(pd.to_numeric)
 
 
-# In[75]:
+# In[74]:
 
 
 df_n['Precio Gasoleo Premium'].describe()
 
 
-# In[76]:
+# In[75]:
 
 
 # Registros sin venta Gasoleo Premium
@@ -715,7 +707,7 @@ sin_suministro_gP = df_n['Precio Gasoleo Premium'].isnull().sum()
 sin_suministro_gP
 
 
-# In[77]:
+# In[76]:
 
 
 ceros_sin_suministro_gP = (df_n['Precio Gasoleo Premium'] == 0).sum()
@@ -724,7 +716,7 @@ ceros_sin_suministro_gP
 
 # # Precio Gasolina 95 E10 
 
-# In[78]:
+# In[77]:
 
 
 g95_E10 = df_n['Precio Gasolina 95 E10'].unique()
@@ -733,7 +725,7 @@ print(type(g95_E10))
 g95_E10
 
 
-# In[79]:
+# In[78]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -741,13 +733,13 @@ df_n['Precio Gasolina 95 E10']=df_n['Precio Gasolina 95 E10'].str.replace(',','.
 df_n[['Precio Gasolina 95 E10']]=df_n[['Precio Gasolina 95 E10']].apply(pd.to_numeric)
 
 
-# In[80]:
+# In[79]:
 
 
 df_n['Precio Gasolina 95 E10'].describe()
 
 
-# In[81]:
+# In[80]:
 
 
 # Registros sin venta Gasoleo Premium
@@ -757,7 +749,7 @@ sin_suministro_95E10
 
 # # Precio Gasolina 95 E5
 
-# In[82]:
+# In[81]:
 
 
 g95_E5 = df_n['Precio Gasolina 95 E5'].unique()
@@ -766,7 +758,7 @@ print(type(g95_E5))
 g95_E5
 
 
-# In[83]:
+# In[82]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -774,13 +766,13 @@ df_n['Precio Gasolina 95 E5']=df_n['Precio Gasolina 95 E5'].str.replace(',','.')
 df_n[['Precio Gasolina 95 E5']]=df_n[['Precio Gasolina 95 E5']].apply(pd.to_numeric)
 
 
-# In[84]:
+# In[83]:
 
 
 df_n['Precio Gasolina 95 E5'].describe()
 
 
-# In[85]:
+# In[84]:
 
 
 # Registros sin venta Gasoleo Premium
@@ -788,7 +780,7 @@ sin_suministro_g95E5 = df_n['Precio Gasolina 95 E5'].isnull().sum()
 sin_suministro_g95E5
 
 
-# In[86]:
+# In[85]:
 
 
 ceros_sin_suministro_g95E5  = (df_n['Precio Gasolina 95 E5'] == 0).sum()
@@ -797,7 +789,7 @@ ceros_sin_suministro_g95E5
 
 # # Precio Gasolina 95 E5 Premium
 
-# In[87]:
+# In[86]:
 
 
 g95_E5_P = df_n['Precio Gasolina 95 E5 Premium'].unique()
@@ -806,7 +798,7 @@ print(type(g95_E5_P))
 g95_E5_P
 
 
-# In[88]:
+# In[87]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -814,13 +806,13 @@ df_n['Precio Gasolina 95 E5 Premium']=df_n['Precio Gasolina 95 E5 Premium'].str.
 df_n[['Precio Gasolina 95 E5 Premium']]=df_n[['Precio Gasolina 95 E5 Premium']].apply(pd.to_numeric)
 
 
-# In[89]:
+# In[88]:
 
 
 df_n['Precio Gasolina 95 E5 Premium'].describe()
 
 
-# In[90]:
+# In[89]:
 
 
 # Registros sin venta Gasolina 95 E5 Premium
@@ -828,7 +820,7 @@ sin_suministro_g95E5_Prem = df_n['Precio Gasolina 95 E5 Premium'].isnull().sum()
 sin_suministro_g95E5_Prem
 
 
-# In[91]:
+# In[90]:
 
 
 ceros_sin_suministro_g95E5_Prem  = (df_n['Precio Gasolina 95 E5 Premium'] == 0).sum()
@@ -837,7 +829,7 @@ ceros_sin_suministro_g95E5
 
 # # Precio Gasolina 98 E10
 
-# In[92]:
+# In[91]:
 
 
 g98_E10 = df_n['Precio Gasolina 98 E10'].unique()
@@ -846,7 +838,7 @@ print(type(g98_E10))
 g98_E10
 
 
-# In[93]:
+# In[92]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -854,13 +846,13 @@ df_n['Precio Gasolina 98 E10']=df_n['Precio Gasolina 98 E10'].str.replace(',','.
 df_n[['Precio Gasolina 98 E10']]=df_n[['Precio Gasolina 98 E10']].apply(pd.to_numeric)
 
 
-# In[94]:
+# In[93]:
 
 
 df_n['Precio Gasolina 98 E10'].describe()
 
 
-# In[95]:
+# In[94]:
 
 
 # Registros sin venta Gasolina 98 E10 
@@ -870,7 +862,7 @@ sin_suministro_g98E10
 
 # # Precio Gasolina 98 E5
 
-# In[96]:
+# In[95]:
 
 
 g98_E5 = df_n['Precio Gasolina 98 E5'].unique()
@@ -879,7 +871,7 @@ print(type(g98_E5))
 g98_E5
 
 
-# In[97]:
+# In[96]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -887,13 +879,13 @@ df_n['Precio Gasolina 98 E5']=df_n['Precio Gasolina 98 E5'].str.replace(',','.')
 df_n[['Precio Gasolina 98 E5']]=df_n[['Precio Gasolina 98 E5']].apply(pd.to_numeric)
 
 
-# In[98]:
+# In[97]:
 
 
 df_n['Precio Gasolina 98 E5'].describe()
 
 
-# In[99]:
+# In[98]:
 
 
 # Registros sin venta Gasolina 98 E5 
@@ -901,7 +893,7 @@ sin_suministro_g98E5 = df_n['Precio Gasolina 98 E5'].isnull().sum()
 sin_suministro_g98E5
 
 
-# In[100]:
+# In[99]:
 
 
 ceros_sin_suministro_g98E5  = (df_n['Precio Gasolina 98 E5'] == 0).sum()
@@ -910,7 +902,7 @@ ceros_sin_suministro_g98E5
 
 # # Precio Hidrogeno 
 
-# In[101]:
+# In[100]:
 
 
 Hidrongeno = df_n['Precio Hidrogeno'].unique()
@@ -919,7 +911,7 @@ print(type(Hidrongeno))
 Hidrongeno
 
 
-# In[102]:
+# In[101]:
 
 
 # Convertimos columna categórica a numérica, primero tenemos que sustituir , por .
@@ -927,13 +919,13 @@ df_n['Precio Hidrogeno']=df_n['Precio Hidrogeno'].str.replace(',','.')
 df_n[['Precio Hidrogeno']]=df_n[['Precio Hidrogeno']].apply(pd.to_numeric)
 
 
-# In[103]:
+# In[102]:
 
 
 df_n['Precio Hidrogeno'].describe()
 
 
-# In[104]:
+# In[103]:
 
 
 df_n.info()
@@ -944,7 +936,7 @@ df_n.info()
 # 
 # # Limpieza de Columnas
 
-# In[105]:
+# In[104]:
 
 
 # Eliminiación de columnas que no interesan a nivel usuario o que no aportan datos significativos al modelo
@@ -954,20 +946,20 @@ df_n.drop(['Margen', 'Remisión', 'Tipo Venta', '% BioEtanol', '% Éster metíli
           'Precio Gasolina 95 E5 Premium', 'Precio Gasolina 98 E10', 'Precio Hidrogeno'], axis=1, inplace=True)
 
 
-# In[106]:
+# In[105]:
 
 
 # Comprobación
 df_n.iloc[15][['Precio Gasoleo B']]
 
 
-# In[107]:
+# In[106]:
 
 
 df_n.head()
 
 
-# In[108]:
+# In[107]:
 
 
 # Renombramos las columnas
@@ -977,7 +969,7 @@ df_n.rename(columns={"Precio Gasoleo A": "Gasoleo A", "Precio Gasoleo B": "Gasol
 df_n.head(1)
 
 
-# In[109]:
+# In[108]:
 
 
 # Media Nacional
@@ -988,20 +980,9 @@ df_n['Media Nacional Gasolina 95']=df_n['Gasolina 95 E5'].mean()
 df_n['Media Nacional Gasolina 98']=df_n['Gasolina 98 E5'].mean()
 
 
-# In[110]:
-
-
-# Desviación (eliminanos porque no aporta información va)
-#df_n['dev_Gasoleo A']= df_n['Gasoleo A'] - df_n['Media_Gasoleo A']
-#df_n['dev_Gasoleo B'] =df_n['Gasoleo B'] - df_n['Media_Gasoleo B']
-#df_n['dev_Gasoleo Prem'] =df_n['Gasoleo Premium'] - df_n['Media_Gasoleo Prem']
-#df_n['dev_Gasolina 95']=df_n['Gasolina 95 E5'] - df_n['Media_Gasolina 95']
-#df_n['dev_Gasolina 98']=df_n['Gasolina 98 E5']- df_n['Media_Gasolina 98']
-
-
 # # Media de precios respecto al código postal
 
-# In[111]:
+# In[110]:
 
 
 # Media Código Postal de Gasoleo A
@@ -1012,7 +993,7 @@ def cp_media_A(x):
     return media_cp_GA
 
 
-# In[112]:
+# In[111]:
 
 
 # Media Código Postal de Gasoleo B
@@ -1023,7 +1004,7 @@ def cp_media_B(x):
     return media_cp_GB
 
 
-# In[113]:
+# In[112]:
 
 
 # Media Código Postal de Gasoleo Premium
@@ -1034,7 +1015,7 @@ def cp_media_P(x):
     return media_cp_GP
 
 
-# In[114]:
+# In[113]:
 
 
 # Media Código Postal de Gasolina 95 E5
@@ -1045,7 +1026,7 @@ def cp_media_95(x):
     return media_cp_G95
 
 
-# In[115]:
+# In[114]:
 
 
 # Media Código Postal de Gasolina 98 E5
@@ -1056,14 +1037,14 @@ def cp_media_98(x):
     return media_cp_G98
 
 
-# In[116]:
+# In[115]:
 
 
 # Comprobación
 cp_media_95('28760')
 
 
-# In[117]:
+# In[116]:
 
 
 # Aplicamos la función a la columna
@@ -1074,19 +1055,19 @@ df_n[['Media C.P. Gasolina 95']]= df_n['C.P.'].apply(cp_media_95)
 df_n[['Media C.P. Gasolina 98']]= df_n['C.P.'].apply(cp_media_98)
 
 
-# In[118]:
+# In[117]:
 
 
 df_n.head()
 
 
-# In[119]:
+# In[118]:
 
 
 df_n.info()
 
 
-# In[120]:
+# In[119]:
 
 
 #Ordenamos columnas
@@ -1101,7 +1082,7 @@ df_n
 
 # # Limpieza de Nombres en "Proveedores de servicio
 
-# In[121]:
+# In[120]:
 
 
 # Misma marca de gasolineras con nombres diferentes
@@ -1111,31 +1092,31 @@ df_n = df_n.sort_values('Proveedor de Servicio')
 
 
 
-# In[122]:
+# In[121]:
 
 
 df_n["Proveedor de Servicio"] = df_n["Proveedor de Servicio"] .astype(str)
 
 
-# In[123]:
+# In[122]:
 
 
 df_n.info()
 
 
-# In[124]:
+# In[123]:
 
 
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].astype('string')
 
 
-# In[125]:
+# In[124]:
 
 
 df_n.info()
 
 
-# In[126]:
+# In[168]:
 
 
 # Gasolineras BP
@@ -1417,61 +1398,62 @@ df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP 
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP\w*', 'GALP')
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP \S*w*', 'GALP')
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP \S[a-zA-Z0-9_]*\S[a-zA-Z0-9_]*\S[a-zA-Z0-9_]*', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP ', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP&GO', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPENERGIA', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPARRIONDAS', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP(E S  ANTUNEZ)', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPOTROS3 CAMIOTROSS', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPOTROS AMERICAN PETROL', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP/3CAMIOTROSSOTROSVALENCIA', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPDISTRIBUCION OIL ESPAÑA  S A U ', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALP', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPLA JUNQUERA', 'GALP')
+df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('GALPOTROS3CAMIOTROSS UTIEL', 'GALP')
 
 # ES CARBURANTES
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('\S* S\*ES \S*CABURANTES', 'ES CARBURANTES')
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('ES CARBURANTES', 'ES CARBURANTES')
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('ES CARBURANTES CENTRO COMERCIAL VISTALEGRE', 'ES CARBURANTES')
-
 df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('\S*[+]B ENERGIAS ', '+B ENERGIAS')
 df_n['Proveedor de Servicio'] 
 
 
-# In[127]:
+# In[169]:
 
 
-df_n['Proveedor de Servicio'].iloc[58]
+df_n['Proveedor de Servicio'].iloc[5700]
 
 
-# In[ ]:
+# # Guardado Dataframe 
 
-
-
-
-
-# In[128]:
+# In[170]:
 
 
 # Guardamos df original para sucesion de tiempo
 df_n.to_csv('df_sample.csv', index=False)
 
 
-# In[129]:
+# In[171]:
 
 
 df_n.info()
 
 
-# In[130]:
+# In[129]:
 
 
 x = df_n['C.P.']
 print(type(x))
 
 
-# ---
-# Step4
-# 
-# 
-# # Desarrollo Funciones 
-
-# In[131]:
+# In[130]:
 
 
 # Analisis de Funciones
 
 
-# In[132]:
+# In[131]:
 
 
 # Analizar df_n usando .loc()
@@ -1479,74 +1461,74 @@ print(type(x))
 df_n[df_n['C.P.'] == '28760'] 
 
 
-# In[133]:
+# In[132]:
 
 
 df_n[['Gasoleo A']].min()
 
 
-# In[134]:
+# In[133]:
 
 
 type(df_n[['Gasoleo A']].min())
 
 
-# In[135]:
+# In[134]:
 
 
 df_n[['Gasoleo A']].idxmin()
 
 
-# In[136]:
+# In[135]:
 
 
 type(df_n[['Gasoleo A']].idxmin())
 
 
-# In[137]:
+# In[136]:
 
 
 #df_n.loc[df_n[['Gasoleo A']].min()]
 
 
-# In[138]:
+# In[137]:
 
 
 #df_n.head()
 
 
-# In[139]:
+# In[138]:
 
 
 #df_n.loc[1.290]
 
 
-# In[140]:
+# In[139]:
 
 
 df_n.index
 
 
-# In[141]:
+# In[140]:
 
 
 type(df_n.loc[df_n[['Gasoleo A']].idxmin()])
 
 
-# In[142]:
+# In[141]:
 
 
 type(df_n.loc[9213])
 
 
-# In[143]:
+# In[142]:
 
 
 a = df_n.groupby(by=["Municipio"])
 a
 
 
-# In[144]:
+# In[143]:
 
 
 b = a["C.P."].unique()
@@ -1555,7 +1537,7 @@ b
 
 # # Funciones
 
-# In[145]:
+# In[144]:
 
 
 # Precio mínimo de combstible en un codigo postal 
@@ -1567,7 +1549,7 @@ def cp_minimo(x,y):
     return combustible
 
 
-# In[146]:
+# In[145]:
 
 
 cp_minimo('28760', 'Gasoleo A')
@@ -1575,13 +1557,13 @@ cp_minimo('28760', 'Gasoleo A')
 
 # ---
 
-# In[147]:
+# In[146]:
 
 
 df_n[df_n['C.P.'] == "28500"]
 
 
-# In[148]:
+# In[147]:
 
 
 # Comprobación
@@ -1590,7 +1572,7 @@ x2 = df_n[x1]
 x2
 
 
-# In[149]:
+# In[148]:
 
 
 ########
@@ -1602,14 +1584,14 @@ def cp_media(x):
     return media_cp
 
 
-# In[150]:
+# In[149]:
 
 
 #####Comprobacion#####
 cp_media('28760')
 
 
-# In[151]:
+# In[150]:
 
 
 # Precio mínimo de combstible en una Provincia  
@@ -1621,13 +1603,13 @@ def provincia_minimo(x, y):
     return minimo_prov
 
 
-# In[152]:
+# In[151]:
 
 
 provincia_minimo('MADRID', 'Gasoleo A')
 
 
-# In[153]:
+# In[152]:
 
 
 # Precio mínimo de combstible en un Municipio  
@@ -1639,13 +1621,13 @@ def municipio_minimo(x, y):
     return municipio
 
 
-# In[154]:
+# In[153]:
 
 
 municipio_minimo('Cercedilla', 'Gasoleo A')
 
 
-# In[155]:
+# In[154]:
 
 
 # # Precio mínimo de combstible en un proveedor de estación de servicio  
@@ -1657,13 +1639,13 @@ def gasolinera_minimo(x, y):
     return minimo_prov
 
 
-# In[156]:
+# In[155]:
 
 
 gasolinera_minimo('REPSOL', 'Gasoleo A')
 
 
-# In[157]:
+# In[156]:
 
 
 # Función para convertir códigos postales
@@ -1676,7 +1658,7 @@ type(convert)
     
 
 
-# In[158]:
+# In[157]:
 
 
 convert('Móstoles')
@@ -1688,7 +1670,7 @@ convert('Móstoles')
 
 
 
-# In[159]:
+# In[158]:
 
 
 # Listado de Estaciones de Servicio por Municipio por Municipio
@@ -1699,13 +1681,13 @@ def gasolineras_municipio(x):
     return eess_mun
 
 
-# In[160]:
+# In[159]:
 
 
 gasolineras_municipio('Navalcarnero')
 
 
-# In[161]:
+# In[160]:
 
 
 # Listado de Gasolineras por Provincia
@@ -1715,13 +1697,13 @@ def gasolineras_provincia(x):
     return cp_x
 
 
-# In[162]:
+# In[161]:
 
 
 gasolineras_provincia('HUELVA')
 
 
-# In[163]:
+# In[162]:
 
 
 # Listado de Gasolineras por Código Postal:
@@ -1731,13 +1713,13 @@ def gasolineras_cp(x):
     return cp
 
 
-# In[164]:
+# In[163]:
 
 
 gasolineras_cp('28500')
 
 
-# In[165]:
+# In[164]:
 
 
 df_n.dropna()
