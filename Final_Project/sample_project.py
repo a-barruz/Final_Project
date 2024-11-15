@@ -459,7 +459,7 @@ df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].str.replace('\S*[+
 df_n['Proveedor de Servicio'] 
 
 # Guardamos df original para sucesion de tiempo
-df_n.to_csv('df_sample.csv', index=False)
+#df_n.to_csv('df_sample.csv', index=False)
 
 
 header = st.container()
@@ -479,7 +479,8 @@ with header:
 
 with dataset:
     
-    gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.":str})
+    #gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.":str})
+    gasolineras = df_n
     #st.text(pd.DataFrame(gasolineras))
     #gasolineras['Gasoleo B'] = gasolineras['Gasoleo B'].replace(np.nan, "Sin servicio")
     #f['DataFrame Column'] = df['DataFrame Column'].replace(np.nan, 0)
