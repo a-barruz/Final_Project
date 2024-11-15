@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
-import json
+#import json
 
 
 
@@ -195,6 +195,86 @@ except:
     
     peligro = Image.open('sin_combustible.png')
     st.image(peligro)        
+
+
+
+# Slicing for Municipio
+#try:   
+    #if page == 'Municipio':
+    
+        #Filtros para operaciones en cajas
+        #filtro_combustible = ['Gasoleo A', 'Gasoleo B','Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']
+        #filtro_municipio = gasolineras["Municipio"].unique()
+    
+        # Cajas Sidebar
+        #caja_municipio = st.sidebar.selectbox("Seleccione Municipio", filtro_municipio)
+        #combustible = st.sidebar.selectbox("Seleccione tipo de combustible", filtro_combustible)
+
+        #def cp_minimo(caja_municipio, combustible):
+            #municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+            #filtro_df_n_2= municipio.loc[municipio[[combustible]].idxmin()]
+            #return(filtro_df_n_2) 
+
+    
+
+        #if st.sidebar.button('Buscar'):
+            #st.write(cp_minimo(caja_municipio, combustible))
+        
+            #st.subheader('Comparación por tipo de combustible respecto a la Media por Código Postal y Nacional')
+
+            #def mean_CP(combustible):
+                #if combustible == 'Gasoleo A':
+                    #var = 'Media C.P. Gasoleo A'        
+                #if combustible == 'Gasoleo B':
+                    #var = 'Media C.P. Gasoleo B'      
+                #if combustible == 'Gasoleo Premium':
+                    #var = 'Media C.P. Gasoleo P'
+                #if combustible == 'Gasolina 95 E5':
+                    #var = 'Media C.P. Gasolina 95'
+                #if combustible == 'Gasolina 98 E5':
+                    #var = 'Media C.P. Gasolina 98'             
+                #return var
+
+            #def mean(combustible):
+                #if combustible == 'Gasoleo A':
+                    #var ='Media Nacional Gasoleo A'        
+                #if combustible == 'Gasoleo B':
+                    #var = 'Media Nacional Gasoleo B'        
+                #if combustible == 'Gasoleo Premium':
+                    #var = 'Media Nacional Gasoleo P'
+                #if combustible == 'Gasolina 95 E5':
+                    #var = 'Media Nacional Gasolina 95'
+                #if combustible == 'Gasolina 98 E5':
+                    #var = 'Media Nacional Gasolina 98'
+                #return var
+
+            #graphic = pd.DataFrame(cp_minimo(caja_municipio, combustible), columns=[combustible, mean_CP(combustible), mean(combustible)]).T
+            #st.bar_chart(graphic)
+    
+            #if st.sidebar.button('Limpiar'):
+                #st.write(gasolineras)
+
+
+                
+        #else:
+            #st.write(gasolineras)
+        
+            #caja_general = st.checkbox('Todas las Gasolineras por Municipio')
+            #if caja_general:        
+                #filtro_municipio = gasolineras["Municipio"].unique()
+                #caja_municipio=st.selectbox('Filtro por Municipio', filtro_municipio)
+                #def cp_minimo(caja_municipio):
+                    #municipio = gasolineras[(gasolineras["Municipio"] == caja_municipio)]
+                    #return municipio 
+                
+                #st.write(cp_minimo(caja_municipio))
+#except:
+    #st.error('No hay suministro para el combustible seleccionado', icon="🚨")
+    
+    #peligro = Image.open('sin_combustible.png')
+    #st.image(peligro)
+      
+
 
 
  # Slicing for 'Localidad':
