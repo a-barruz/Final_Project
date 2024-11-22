@@ -95,7 +95,7 @@ interaccion_usuario = st.container()
 graficos = st.container()
 
 # Función para cargar y procesar el DataFrame
-@st.cache
+@st.cache_data
 def load_data():
     gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.": str})
     return gasolineras
@@ -132,8 +132,8 @@ with header:
     st.image(image, caption='Encuentra tu Gasolinera con el combustible más económico')
 
 # Contenido del contenedor dataset
-#with dataset:
-    #st.write(gasolineras)
+with dataset:
+    st.write(gasolineras)
 
 # Contenido del contenedor interaccion_usuario
 with interaccion_usuario:
