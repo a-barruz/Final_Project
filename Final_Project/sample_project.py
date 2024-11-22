@@ -4,101 +4,77 @@ import numpy as np
 from PIL import Image
 import json
 from urllib.request import urlopen
-import os
 
 # Definir las variables donde meto el string que contiene la URL
 endpoint = 'https://sedeaplicaciones.minetur.gob.es'
 parametros = '/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'
 
-# Guardamos en una variable nuestros datos
-response = urlopen(endpoint + parametros)
-
-# Extraer los datos del objeto
-data = response.read().decode('utf-8', 'replace')
-data = json.loads(data)
-
-# Crear DataFrame
-df = pd.DataFrame(data)
-
-# Extraer información de la columna Lista EESS Precio utilizando json normalize
-df_n = pd.concat([df[['Fecha']], pd.json_normalize(df['ListaEESSPrecio'])], axis=1)
-
-# Convertir columnas categóricas a numéricas
-cols_to_convert = [
-    'Precio Bioetanol', 'Precio Gas Natural Comprimido', 'Precio Gas Natural Licuado',
-    'Precio Gases licuados del petróleo', 'Precio Gasoleo A', 'Precio Gasoleo B',
-    'Precio Gasoleo Premium', 'Precio Gasolina 95 E10', 'Precio Gasolina 95 E5',
-    'Precio Gasolina 95 E5 Premium', 'Precio Gasolina 98 E10', 'Precio Gasolina 98 E5',
-    'Precio Hidrogeno'
-]
-
-df_n[cols_to_convert] = df_n[cols_to_convert].applymap(lambda x: pd.to_numeric(x.replace(',', '.'), errors='coerce'))
-
-# Eliminar columnas que no interesan
-cols_to_drop = [
-    'Margen', 'Remisión', 'Tipo Venta', '% BioEtanol', '% Éster metílico', 'Precio Biodiesel',
-    'Precio Bioetanol', 'Precio Gas Natural Comprimido', 'Precio Gas Natural Licuado',
-    'Precio Gases licuados del petróleo', 'Precio Gasolina 95 E10', 'Precio Gasolina 95 E5 Premium',
-    'Precio Gasolina 98 E10', 'Precio Hidrogeno'
-]
-df_n.drop(columns=cols_to_drop, inplace=True)
-
-# Renombrar columnas
-df_n.rename(columns={
-    "Precio Gasoleo A": "Gasoleo A", "Precio Gasoleo B": "Gasoleo B", "Precio Gasoleo Premium": "Gasoleo Premium",
-    "Precio Gasolina 95 E5": "Gasolina 95 E5", "Precio Gasolina 98 E5": "Gasolina 98 E5", "Rótulo": "Proveedor de Servicio"
-}, inplace=True)
-
-# Calcular medias nacionales
-for col in ['Gasoleo A', 'Gasoleo B', 'Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']:
-    df_n[f'Media Nacional {col}'] = df_n[col].mean()
-
-# Calcular medias por código postal
-def calcular_media_cp(df, col):
-    return df.groupby('C.P.')[col].transform('mean')
-
-for col in ['Gasoleo A', 'Gasoleo B', 'Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']:
-    df_n[f'Media C.P. {col}'] = calcular_media_cp(df_n, col)
-
-# Ordenar columnas
-df_n = df_n[[
-    'Fecha', 'Horario', 'C.P.', 'Provincia', 'Municipio', 'Localidad', 'Dirección', 'Proveedor de Servicio',
-    'Gasoleo A', 'Media C.P. Gasoleo A', 'Media Nacional Gasoleo A',
-    'Gasoleo B', 'Media C.P. Gasoleo B', 'Media Nacional Gasoleo B',
-    'Gasoleo Premium', 'Media C.P. Gasoleo Premium', 'Media Nacional Gasoleo Premium',
-    'Gasolina 95 E5', 'Media C.P. Gasolina 95 E5', 'Media Nacional Gasolina 95 E5',
-    'Gasolina 98 E5', 'Media C.P. Gasolina 98 E5', 'Media Nacional Gasolina 98 E5'
-]]
-
-# Normalizar nombres de proveedores de servicio
-def normalizar_proveedor(proveedor):
-    proveedor = proveedor.replace('.', ' ').replace(',', ' ')
-    proveedor = proveedor.replace('BP \S*', 'BP').replace('BPS \S*', 'BP').replace('BP\w*', 'BP')
-    proveedor = proveedor.replace('SIN RÓTULO', 'OTROS').replace('(sin rótulo)', 'OTROS')
-    proveedor = proveedor.replace('*', 'OTROS').replace('-', 'OTROS').replace('0', 'OTROS')
-    return proveedor
-
-df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].apply(normalizar_proveedor)
-
-# Guardar DataFrame en CSV
-df_n.to_csv('df_sample.csv', index=False)
-
-
-import streamlit as st
-import pandas as pd
-from PIL import Image
-
-# Contenedores de Streamlit
-header = st.container()
-dataset = st.container()
-interaccion_usuario = st.container()
-graficos = st.container()
-
-# Función para cargar y procesar el DataFrame
+# Función para cargar y procesar los datos
 @st.cache_data
 def load_data():
-    gasolineras = pd.read_csv("./df_sample.csv", dtype={"C.P.": str})
-    return gasolineras
+    response = urlopen(endpoint + parametros)
+    data = response.read().decode('utf-8', 'replace')
+    data = json.loads(data)
+    df = pd.DataFrame(data)
+    df_n = pd.concat([df[['Fecha']], pd.json_normalize(df['ListaEESSPrecio'])], axis=1)
+
+    # Convertir columnas categóricas a numéricas
+    cols_to_convert = [
+        'Precio Bioetanol', 'Precio Gas Natural Comprimido', 'Precio Gas Natural Licuado',
+        'Precio Gases licuados del petróleo', 'Precio Gasoleo A', 'Precio Gasoleo B',
+        'Precio Gasoleo Premium', 'Precio Gasolina 95 E10', 'Precio Gasolina 95 E5',
+        'Precio Gasolina 95 E5 Premium', 'Precio Gasolina 98 E10', 'Precio Gasolina 98 E5',
+        'Precio Hidrogeno'
+    ]
+    df_n[cols_to_convert] = df_n[cols_to_convert].applymap(lambda x: pd.to_numeric(x.replace(',', '.'), errors='coerce'))
+
+    # Eliminar columnas que no interesan
+    cols_to_drop = [
+        'Margen', 'Remisión', 'Tipo Venta', '% BioEtanol', '% Éster metílico', 'Precio Biodiesel',
+        'Precio Bioetanol', 'Precio Gas Natural Comprimido', 'Precio Gas Natural Licuado',
+        'Precio Gases licuados del petróleo', 'Precio Gasolina 95 E10', 'Precio Gasolina 95 E5 Premium',
+        'Precio Gasolina 98 E10', 'Precio Hidrogeno'
+    ]
+    df_n.drop(columns=cols_to_drop, inplace=True)
+
+    # Renombrar columnas
+    df_n.rename(columns={
+        "Precio Gasoleo A": "Gasoleo A", "Precio Gasoleo B": "Gasoleo B", "Precio Gasoleo Premium": "Gasoleo Premium",
+        "Precio Gasolina 95 E5": "Gasolina 95 E5", "Precio Gasolina 98 E5": "Gasolina 98 E5", "Rótulo": "Proveedor de Servicio"
+    }, inplace=True)
+
+    # Calcular medias nacionales
+    for col in ['Gasoleo A', 'Gasoleo B', 'Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']:
+        df_n[f'Media Nacional {col}'] = df_n[col].mean()
+
+    # Calcular medias por código postal
+    def calcular_media_cp(df, col):
+        return df.groupby('C.P.')[col].transform('mean')
+
+    for col in ['Gasoleo A', 'Gasoleo B', 'Gasoleo Premium', 'Gasolina 95 E5', 'Gasolina 98 E5']:
+        df_n[f'Media C.P. {col}'] = calcular_media_cp(df_n, col)
+
+    # Ordenar columnas
+    df_n = df_n[[
+        'Fecha', 'Horario', 'C.P.', 'Provincia', 'Municipio', 'Localidad', 'Dirección', 'Proveedor de Servicio',
+        'Gasoleo A', 'Media C.P. Gasoleo A', 'Media Nacional Gasoleo A',
+        'Gasoleo B', 'Media C.P. Gasoleo B', 'Media Nacional Gasoleo B',
+        'Gasoleo Premium', 'Media C.P. Gasoleo Premium', 'Media Nacional Gasoleo Premium',
+        'Gasolina 95 E5', 'Media C.P. Gasolina 95 E5', 'Media Nacional Gasolina 95 E5',
+        'Gasolina 98 E5', 'Media C.P. Gasolina 98 E5', 'Media Nacional Gasolina 98 E5'
+    ]]
+
+    # Normalizar nombres de proveedores de servicio
+    def normalizar_proveedor(proveedor):
+        proveedor = proveedor.replace('.', ' ').replace(',', ' ')
+        proveedor = proveedor.replace('BP \S*', 'BP').replace('BPS \S*', 'BP').replace('BP\w*', 'BP')
+        proveedor = proveedor.replace('SIN RÓTULO', 'OTROS').replace('(sin rótulo)', 'OTROS')
+        proveedor = proveedor.replace('*', 'OTROS').replace('-', 'OTROS').replace('0', 'OTROS')
+        return proveedor
+
+    df_n['Proveedor de Servicio'] = df_n['Proveedor de Servicio'].apply(normalizar_proveedor)
+
+    return df_n
 
 # Función para calcular la media por tipo de combustible
 def calcular_media(df, combustible, nivel):
@@ -127,15 +103,13 @@ def mostrar_grafico(df, combustible, nivel):
 gasolineras = load_data()
 
 # Contenido del contenedor header
+header = st.container()
 with header:
     image = Image.open('logo.png')
     st.image(image, caption='Encuentra tu Gasolinera con el combustible más económico')
 
-# Contenido del contenedor dataset
-with dataset:
-    st.write(gasolineras)
-
 # Contenido del contenedor interaccion_usuario
+interaccion_usuario = st.container()
 with interaccion_usuario:
     st.header('GASOLINERAS EN ESPAÑA')
     st.sidebar.header("ENCUENTRA LA GASOLINERA MÁS BARATA FILTRANDO POR:")
