@@ -132,8 +132,8 @@ with header:
     st.image(image, caption='Encuentra tu Gasolinera con el combustible más económico')
 
 # Contenido del contenedor dataset
-with dataset:
-    st.write(gasolineras)
+#with dataset:
+    #st.write(gasolineras)
 
 # Contenido del contenedor interaccion_usuario
 with interaccion_usuario:
