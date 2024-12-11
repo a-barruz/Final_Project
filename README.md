@@ -81,6 +81,8 @@ https://stackoverflow.com/
 
 https://www.youtube.com/
 
+https://chatgpt.com/
+
 
 
 # 💌 Contact info
